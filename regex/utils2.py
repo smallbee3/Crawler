@@ -1,36 +1,21 @@
 import re
 
-import requests
 
 
+# 만약에 이 utils2.py를 *로 import하게 되면 import re까지 import되니까 아래 모듈만 되도록 해준 것.
 
 __all__ = (
     'get_tag_attribute',
     'get_tag_content',
 )
 
-
-
-def save_melon():
-    response = requests.get("https://www.melon.com/chart/index.htm")
-    with open('melon.txt', 'wt') as f:
-        f.write(response.text)
-
-
-    # 텍스트로 받아올 때
-    # print(response.text)
-
-    # 바이트로 받아올 때 (
-    # print(response.content)
-
-# if __name__ == '__main__':
-#     save_melon()
-
-
-
-
-
-
+source = '''
+<div class="first-div">
+    <div class="second-div">
+        <span class="span-content">ABCD</span>
+    </div>
+</div>'
+'''
 
 
 def get_tag_attribute(attribute_name, tag_string):

@@ -38,11 +38,6 @@ import re
 # for index, item in enumerate(result):
 #     print(index, item)
 
-# 위에서 p1을 한번 더 해야되는 이유
-# p = re.compile(r'<a.*?</a>')
-# result = re.findall(p, source)
-# for index, item in enumerate(result):
-#     print(index, item)
 
 
 # 위에서 div class에서 한번 짜르고 그걸 가지고 한번 더 짜르고.
@@ -101,8 +96,4 @@ for i in result_iter:
     num += 1
 
 # print(result_iter)
-
-
-
-pattern_div_
 

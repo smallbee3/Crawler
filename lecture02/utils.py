@@ -39,24 +39,30 @@ def get_top100_list(refresh_html=False):
     # 'xt'모드와 try-except를 쓸 경우
     file_path = os.path.join(path_data_dir, 'chart_realtime_50.html')
     try:
-        with open(file_path, 'xt') as f:
+        # refresh_html매개변수가 True일 경우, wt모드로 파일을 열어 새로 파일을 다운받도록 함
+        file_mode = 'wt' if refresh_html else 'xt'
+        with open(file_path, file_mode) as f:
             response = requests.get(url_chart_realtime_50)
             source = response.text
             f.write(source)
     except FileExistsError:
-        print(f'"{file_path}" file is already exists!')
+        print(f'"{file_path}" 아직 refresh 안됬어요. file is already exists!(1)')
+
+
+
 
     # 51~100위에 해당하는 웹페이지 HTML을
     # data/chart_realtime_100.html 에 저장
     # 파일이 있는 경우를 검사 후 로직 실행
     file_path = os.path.join(path_data_dir, 'chart_realtime_100.html')
-    if not os.path.exists(file_path):
+    # 파일이 없다 or refresh_html이 True인 경우 새로 파일을 받음.
+    if not os.path.exists(file_path) or refresh_html:     # refresh_html이  True인 경우 새로 파일을 받음.
         response = requests.get(url_chart_realtime_100)
         source = response.text
         with open(file_path, 'wt') as f:
             f.write(source)
     else:
-        print(f'"{file_path}" file is already exists!')
+        print(f'"{file_path}" 아직 refresh 안됬어요. file is already exists!(2)')
 
     # file_path = os.path.join(path_data_dir, 'abc.txt')
     # print(f'file_path: \n{file_path}')
@@ -68,7 +74,7 @@ def get_top100_list(refresh_html=False):
     soup = BeautifulSoup(source, 'lxml')
 
     result = []
-    for tr in soup.find_all('tr', class_='lst50'):
+    for tr in soup.find_all('tr', class_=['lst50', 'lst100']):
         rank = tr.find('span', class_='rank').text
         title = tr.find('div', class_='rank01').find('a').text
         artist = tr.find('div', class_='rank02').find('a').text
@@ -158,6 +164,6 @@ def get_top100_list(refresh_html=False):
     #     })
 
 
-get_top100_list()
+# get_top100_list()
 
-print('main.py 실행')
+print('utils.py 실행')

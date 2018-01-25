@@ -1,4 +1,10 @@
 
+#Custom
+/data
+# root 폴더를 기준으로 data폴더 제외
+
+
+
 # Created by https://www.gitignore.io/api/linux,macos,python,pycharm+all
 
 ### Linux ###

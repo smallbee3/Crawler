@@ -162,8 +162,3 @@ def get_top100_list(refresh_html=False):
     #         'artist': artist,
     #         'album': album,
     #     })
-
-
-# get_top100_list()
-
-print('utils.py 실행')

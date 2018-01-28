@@ -17,11 +17,11 @@ def get_song_detail(song_id, refresh_html=False):
     """
 
     # utils가 있는
-    path_module = os.path.abspath(__name__)
+    PATH_MODULE = os.path.abspath(__file__)
     # print(f'path_module: \n{path_module}')
 
     # 프로젝트 컨테이너 폴더 경로
-    root_dir = os.path.dirname(path_module)
+    root_dir = os.path.dirname(PATH_MODULE)
     # print(f'root_dir: \n{root_dir}')
 
     # data/ 폴더 경로

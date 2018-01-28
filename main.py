@@ -1,52 +1,95 @@
-
-from utils_home import *
-from song_id import *
-import random
+from utils import get_top100_list
+from utils.melon_crawler import MelonCrawler
 
 
-# if __name__ == '__main__':
-#     result = get_top100_list()
-#     for item in result:
-#         print(item)
 
-
-# 너무 많으니까 보기쉽게 랭크와 제목만 출력.—
 if __name__ == '__main__':
-
-    num = 0
-    while True:
-        if num == 0:
-            print('\n\n= 멜론에 오신 것을 환영합니다. =')
-            num += 1
-        data = input('\n\n 원하시는 번호를 선택하세요.\n\n  1. TOP100 실시간 리스트보기\n  2. 곡 상세정보 보기\n  3. 인기곡 30곡의 ID 보기(무작위선택)\n  4. 나가기\n\n')
-
-        if data == '1':
-            result = get_top100_list(True)
-            for i in range(len(result)):
-                print(result[i])
-
-
-        elif data == '2':
-            song_id = input('원하는 곡의 ID를 입력하세요 ')
-            result = get_song_detail(song_id)
-            print(result)
-
-        # elif data == '3':
-        #     result = get_top100_list()
-        #     for item in result:
-        #         print(f'{ item["title"]:3} : {item["song_id"]}')
-        #                             # {} 안에서 공백 넣을 때 :3 이렇게 쓴다.
-
-        elif data == '3':
-            result = get_top100_list()
-            for i in range(30):
-                choice = random.choice(result)
-                print(f'{choice["title"]:7} : {choice["song_id"]}')
-
-        else:
-            print('= 감사합니다. =\n\n')
-            break
+    crawler = MelonCrawler()
+    # q = input('검색할 곡 명을 입력해주세요: ')
+    # search_song_list = crawler.search_song(q)
 
 
 
+################ top100 list ################
 
+    # result = get_top100_list()
+    # for i in result:
+    #     print(i)
+
+
+
+################ song 검색 ################
+
+    # song_list = crawler.search_song('기대해')
+    # song = song_list[0]
+
+    # print(song)
+    # print(song.title)
+    # print(song.album)
+
+    # print(song._lyrics, ': song._lyrics는 None' )
+    # # print(song.lyrics)
+    #
+    # print(song._producers, ': song._producers는 None' )
+    # print(song.producers)
+
+
+
+################ artist 검색 ################
+
+    # 시도 1
+    # # search_artist() # -> Artist를 호출하는 부분이 존재.
+    # search_artist를 호출할 경우에 그 안에 다른 부분의 인스턴스를
+    # 생성하는 부분 'artist = Artist(~)' 이 있을경우 Artist undefined 에러가 발생
+
+    # 시도 2
+    # Artist.get_detail()           # 인자를 전달해 줘야하는데 방법이 없다.
+
+    # 시도 3
+    # artist_list = Artist('아이유')   # Artist는 인자를 엄청많이 받음, '아이유'만 받는것 검색임.
+    # Artist.get_detail(artist_list) # 그리고 이짓안하려고 위에서 Artist인자를 return하는 것
+
+    # 시도 4 (성공)
+    artist_list = crawler.search_artist('아이유')
+    # artist_list = crawler.search_artist('아이유악대')
+    # artist_list = crawler.search_artist('걸스데이')
+    # artist_list = crawler.search_artist('레드벨벳')
+
+
+#### 1) 아티스트 검색 ####
+
+    for i in artist_list:
+        print(i)
+
+
+
+
+#### 2) 아티스트의 곡 ####
+
+    # artist = artist_list[0]
+    # result = artist.get_song()
+    # for i in result:
+    #     print(i)
+
+
+
+#### 3) 아티스트 상세정보 ####
+
+    # artist = artist_list[0]
+    # artist.get_detail()
+
+
+
+
+
+#### 과제 가이드처럼 그냥 리스트목록을 받는 것으로 했다가
+#### 너무 귀찮아서 그냥 내 방식대로 함.
+#### 1) 아티스트 검색 ####
+# for i in artist_list:
+#     print(i)
+# 딕셔너리 형태로 너무 보기 싫어서 아래로 바꿈
+
+# for i in artist_list:
+#     for j in i.keys():
+#         print(f'{j}: {i.get(j)}')
+#     print('')

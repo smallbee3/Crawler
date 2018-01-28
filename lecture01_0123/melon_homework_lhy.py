@@ -1,4 +1,4 @@
-from lecture02.utils import *
+from lecture02_0125.utils import *
 
 source = open('melon.html', 'rt').read()
 
